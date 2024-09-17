@@ -1,35 +1,33 @@
 package in.subha.rest;
 
-import java.util.List;
+import java.io.IOException;
 import java.util.Map;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import in.subha.entity.Courses;
-import in.subha.service.CoursesService;
+import in.subha.service.ExcelUploadService;
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
 public class CoursesRestController {
-	
-	private CoursesService service;
+	@Autowired
+	private ExcelUploadService service;
 	
 	 @PostMapping("/upload")
-	    public ResponseEntity<?> uploadCustomersData(@RequestParam("file")MultipartFile file){
-	        this.service.saveCoursesToDatabase(file);
+	    public ResponseEntity<?> uploadCustomersData(@RequestParam("file")MultipartFile file) throws IOException{
+	        this.service.importExcelData(file);
 	        return ResponseEntity
 	                .ok(Map.of("Message" , " Customers data uploaded and saved to database successfully"));
 	    }
 
-	    @GetMapping("/")
-	    public ResponseEntity<List<Courses>> getCustomers(){
-	        return new ResponseEntity<>(service.getCourses(), HttpStatus.FOUND);
-	    }
+//	    @GetMapping("/")
+//	    public ResponseEntity<List<Courses>> getCustomers(){
+//	        return new ResponseEntity<>(service.getCourses(), HttpStatus.FOUND);
+//	    }
 	}

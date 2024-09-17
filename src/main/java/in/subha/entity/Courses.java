@@ -1,6 +1,7 @@
 package in.subha.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,7 +27,7 @@ public class Courses {
 	private String duration;
 	
 	@Column(name="start_date")
-	private LocalDate startDate;
+	private LocalDateTime startDate;
 	
 	@Column(name="completion_date")
 	private LocalDate completionDate;
